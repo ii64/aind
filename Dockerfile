@@ -121,7 +121,7 @@ ADD src/docker-2ndboot.sh  /home/user
 ARG NOVNC=0
 RUN sed '/exec \$systemd/i echo \$NOVNC > /novnc_enabled' /docker-entrypoint.sh > /docker-entrypoint2.sh && \
   rm /docker-entrypoint.sh && \
-  mv /docker-entrypoint2.sh /docker-entrypoint && \
+  mv /docker-entrypoint2.sh /docker-entrypoint.sh && \
   chmod +x /docker-entrypoint.sh
 
 # Usage: docker run --rm --privileged -v /:/host --entrypoint bash aind/aind -exc "cp -f /install-kmod.sh /host/aind-install-kmod.sh && cd /host && chroot . /aind-install-kmod.sh"
