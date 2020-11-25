@@ -48,9 +48,9 @@ if ls /apk.d/*.apk; then
     for f in /apk.d/*.apk; do adb install $f; done
 fi
 
-if [ "$NOVNC" = "1" ]; then
+if [ $(cat /novnc_enabled) = "1" ]; then
     echo "running websockify..."
-    websockify -D --web /usr/share/novnc/ $NOVNC_ARGS 0.0.0.0:8080 127.0.0.1:5900
+    websockify -D --web /usr/share/novnc/ 0.0.0.0:8080 127.0.0.1:5900
     echo "websockify -> $?"
 fi
 
