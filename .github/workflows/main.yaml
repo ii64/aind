@@ -14,8 +14,8 @@ jobs:
     - run: sudo ./hack/install-kmod.sh
     - run: docker run -td --name aind --privileged -p 5900:5900 -v /lib/modules:/lib/modules:ro aind/aind:local
     - run: docker run -td --name aind-novnc --privileged -p 8080:8080 -e "NOVNC=1" -v /lib/modules:/lib/modules:ro aind/aind:local
-    - run: timeout 60 sh -exc "until docker exec aind pgrep -f org.anbox.appmgr; do echo "checking aind..." && sleep 10; done"
-    - run: timeout 60 sh -exc "until docker exec aind-novnc pgrep -f org.anbox.appmgr; do echo "checking aind-novnc..." && sleep 10; done"
+    - run: timeout 60 sh -exc 'until docker exec aind pgrep -f org.anbox.appmgr; do echo "checking aind..." && sleep 10; done'
+    - run: timeout 60 sh -exc 'until docker exec aind-novnc pgrep -f org.anbox.appmgr; do echo "checking aind-novnc..." && sleep 10; done'
 # diagnosis
     - run: docker exec aind ps -ef
       if: always()
