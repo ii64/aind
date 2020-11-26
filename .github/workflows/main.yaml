@@ -28,9 +28,10 @@ jobs:
 
     - run: docker exec aind sh -c 'echo "anbox launch --package=org.mozilla.firefox --component=org.mozilla.gecko.BrowserApp" | su user'
     - run: docker exec aind env env DISPLAY=:0 xterm -class UXTerm -title uxterm -u8 -e /bin/bash -c 'curl 127.0.0.1:8080 -v || echo "fail" && sleep 60'
-    - run: sh -exc 'until docker exec aind pgrep -f org.mozilla.firefox; do echo "checking mozilla..." && sleep 10; done'
+    - run: sh -exc 'until docker exec aind pgrep -f term; do echo "checking mozilla..." && sleep 10; done'
     - run: docker exec aind env DISPLAY=:0 scrot /ss_chk.png
     - run: docker cp aind:/ss_chk.png aind_chk.png
+    - run: docker exec aind ps -ef
     - uses: actions/upload-artifact@v2
       with:
         name: Screenshot
