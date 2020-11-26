@@ -37,11 +37,11 @@ jobs:
     - run: docker cp aind:/ss.png aind_ss.png
     - run: docker cp aind-novnc:/ss.png aind_novnc_ss.png
 
-    - run: echo "anbox launch --package=com.aurora.store --component=com.aurora.store.ui.main.AuroraActivity" | docker exec -i aind su user
+    - run: docker exec aind sh -c 'echo "anbox launch --package=com.aurora.store --component=com.aurora.store.ui.main.AuroraActivity" | su user'
     - run: docker exec aind env DISPLAY=:0 scrot /ss_aurora.png
     - run: docker cp aind:/ss_aurora.png aind_ss_aurora.png
 
-    - run: echo "anbox launch --package=org.mozilla.firefox --component=org.mozilla.gecko.BrowserApp" | docker exec -i aind-novnc su user
+    - run: docker exec aind-novnc sh -c 'echo "anbox launch --package=org.mozilla.firefox --component=org.mozilla.gecko.BrowserApp" | su user'
     - run: docker exec aind-novnc env env DISPLAY=:0 xterm -class UXTerm -title uxterm -u8 -e /bin/bash -c 'curl 127.0.0.1:8080 -v || echo "fail" && sleep 60'
     - run: docker exec aind-novnc env DISPLAY=:0 scrot /ss_firefox_chkhttp.png
     - run: docker cp aind-novnc:/ss_firefox_chkhttp.png
